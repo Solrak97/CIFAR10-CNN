@@ -21,20 +21,17 @@ def encode(array):
 
 
 def transform(x_train, x_test, y_train, y_test):
-    x_train = torch.from_numpy(x_train.reshape((50000, 3, 32, 32))[:25000]).type(torch.float32)
+    x_train = torch.from_numpy(x_train.reshape((50000, 3, 32, 32))).type(torch.float32)
     x_test = torch.from_numpy(x_test.reshape((10000, 3, 32, 32))).type(torch.float32)
     
-    y_train = torch.from_numpy(encode(np.array(y_train[:25000])))
+    y_train = torch.from_numpy(encode(np.array(y_train)))
     y_test = torch.from_numpy(encode(np.array(y_test)))
 
     return x_train, x_test, y_train, y_test
 
 
-# Custom subdirectory to find images
-DIRECTORY = "Conv2D\images"
 
-
-def load_data():
+def load_data(DIRECTORY):
     def unpickle(file):
         with open(file, 'rb') as fo:
             dict = pickle.load(fo, encoding='bytes')
